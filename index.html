@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kehrwoche AI — KI-Audit für den Mittelstand</title>
+<meta name="description" content="Konkrete KI-Potenziale für Ihr Unternehmen. Wir analysieren Ihre Prozesse und zeigen Ihnen genau, wo künstliche Intelligenz Zeit und Kosten spart.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0c0c10;
+    --surface: #13131a;
+    --surface2: #1c1c26;
+    --border: #2a2a3a;
+    --accent: #c8a96e;
+    --accent2: #e8c87a;
+    --text: #e8e4dc;
+    --text-muted: #7a7a8e;
+    --text-dim: #4a4a5e;
+    --green: #5fc87a;
+    --radius: 2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  section, nav, footer { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(12, 12, 16, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 10rem 4rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.25;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200, 169, 110, 0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 14ch;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 48ch;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+  .btn-ghost {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--accent);
+    padding: 0.7rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex; gap: 4rem;
+    animation: ticker 24s linear infinite;
+  }
+
+  .ticker-item {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bg);
+    flex-shrink: 0;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  .section {
+    padding: 7rem 4rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .section-body {
+    color: var(--text-muted);
+    max-width: 55ch;
+    font-size: 1.05rem;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .problem-cards {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+
+  .problem-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.25rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+
+  .problem-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .problem-card h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .problem-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-bg {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 2.5rem; left: 12.5%; right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), var(--accent), var(--border));
+  }
+
+  .step {
+    padding: 0 1.5rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .step-num {
+    width: 5rem; height: 5rem;
+    background: var(--bg);
+    border: 1px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    position: relative; z-index: 1;
+  }
+
+  .step h3 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .step p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── WHAT YOU GET ── */
+  .report-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .report-preview {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .report-preview::before {
+    content: 'MUSTER-BERICHT';
+    position: absolute;
+    top: -0.75rem; left: 1.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.15rem 0.6rem;
+    font-weight: 600;
+  }
+
+  .report-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .report-header h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .report-header span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .report-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .report-item:last-child { border-bottom: none; }
+
+  .report-num {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1;
+    min-width: 2rem;
+  }
+
+  .report-item h5 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .report-item p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .report-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    padding: 0.15rem 0.5rem;
+    background: rgba(200,169,110,0.12);
+    border: 1px solid rgba(200,169,110,0.3);
+    color: var(--accent);
+    margin-top: 0.3rem;
+    text-transform: uppercase;
+  }
+
+  .benefits-list {
+    display: flex; flex-direction: column; gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .benefit {
+    display: flex; gap: 1rem; align-items: flex-start;
+  }
+
+  .benefit-check {
+    color: var(--green);
+    font-size: 1rem;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+  }
+
+  .benefit h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .benefit p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── PRICING ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+  }
+
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .price-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+  .price-card.featured {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--surface) 0%, rgba(200,169,110,0.05) 100%);
+  }
+
+  .price-badge {
+    position: absolute; top: -0.75rem; left: 1.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.15rem 0.7rem;
+    font-weight: 600;
+  }
+
+  .price-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .price-amount {
+    font-family: 'Fraunces', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .price-range {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .price-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.5rem 0;
+  }
+
+  .price-features {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .price-features li {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: flex; gap: 0.6rem; align-items: flex-start;
+  }
+
+  .price-features li::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── TARGETING ── */
+  .target-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .target-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .target-card:hover { border-color: var(--accent); }
+
+  .target-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .target-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .target-card p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── CTA / CONTACT ── */
+  .cta-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    padding: 7rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200,169,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section .section-title { max-width: 100%; }
+
+  .cta-form {
+    display: flex;
+    gap: 0;
+    max-width: 520px;
+    margin: 2.5rem auto 0;
+  }
+
+  .cta-form input {
+    flex: 1;
+    padding: 0.85rem 1.25rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-right: none;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .cta-form input:focus { border-color: var(--accent); }
+
+  .cta-form input::placeholder { color: var(--text-dim); }
+
+  .cta-note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  /* ── GDPR BADGE ── */
+  .gdpr-row {
+    display: flex; gap: 1rem; align-items: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .gdpr-badge {
+    display: flex; gap: 0.5rem; align-items: center;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .gdpr-badge span { color: var(--green); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .problem-grid, .report-section { grid-template-columns: 1fr; gap: 2.5rem; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .target-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 2rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .cta-section { padding: 5rem 1.5rem; }
+    .cta-form { flex-direction: column; }
+    .cta-form input { border-right: 1px solid var(--border); border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Kehrwoche<span>.ai</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">Warum jetzt?</a></li>
+    <li><a href="#ablauf">Ablauf</a></li>
+    <li><a href="#bericht">Ihr Bericht</a></li>
+    <li><a href="#preise">Preise</a></li>
+  </ul>
+  <a href="#kontakt" class="nav-cta">Kostenlos anfragen</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-label">KI-Audit für den deutschen Mittelstand</div>
+
+  <h1>KI aufräumen, <em>bevor</em><br>die Konkurrenz es tut.</h1>
+
+  <p class="hero-sub">
+    In 48 Stunden zeigen wir Ihnen konkret, wo KI in Ihrem Betrieb
+    Zeit und Kosten spart — mit einem strukturierten Bericht, klaren Zahlen
+    und einem Umsetzungsplan.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#kontakt" class="btn-primary">KI-Audit anfragen</a>
+    <a href="#ablauf" class="btn-ghost">Wie es funktioniert</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">3,5 Mio.</div>
+      <div class="stat-label">Mittelstandsbetriebe in DE</div>
+    </div>
+    <div>
+      <div class="stat-num">72 %</div>
+      <div class="stat-label">nutzen KI noch nicht aktiv</div>
+    </div>
+    <div>
+      <div class="stat-num">€ 800</div>
+      <div class="stat-label">Einstiegsaudit ab</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Kosten senken</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Zeit einsparen</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Wettbewerbsfähig bleiben</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">DSGVO-konform</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Prozesse automatisieren</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">KI-Potenziale erkennen</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Kosten senken</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Zeit einsparen</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Wettbewerbsfähig bleiben</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">DSGVO-konform</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">Prozesse automatisieren</span>
+    <span class="ticker-item">✦</span>
+    <span class="ticker-item">KI-Potenziale erkennen</span>
+    <span class="ticker-item">✦</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="section" id="problem">
+  <div class="problem-grid">
+    <div>
+      <div class="section-label">Die Ausgangslage</div>
+      <h2 class="section-title">Warum der<br>Mittelstand <em>jetzt</em><br>handeln muss.</h2>
+      <p class="section-body">
+        Der KfW-Digitalisierungsindex zeigt: Deutschlands KMUs hinken bei der 
+        Digitalisierung hinterher. Nicht aus Desinteresse — sondern weil es an 
+        zugänglicher, vertrauenswürdiger Beratung fehlt. Das ist unsere Lücke.
+      </p>
+
+      <div class="gdpr-row">
+        <div class="gdpr-badge"><span>✓</span> DSGVO-konform</div>
+        <div class="gdpr-badge"><span>✓</span> EU-Hosting</div>
+        <div class="gdpr-badge"><span>✓</span> Made in Germany</div>
+      </div>
+    </div>
+
+    <div class="problem-cards">
+      <div class="problem-card">
+        <div class="problem-icon">⏱</div>
+        <div>
+          <h4>Verlorene Stunden durch manuelle Prozesse</h4>
+          <p>Angebote, Rechnungen, E-Mails, Terminplanung — alles von Hand. KI könnte hier täglich 2–4 Stunden einsparen.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">💸</div>
+        <div>
+          <h4>Wettbewerber automatisieren bereits</h4>
+          <p>Größere Betriebe und Startups investieren massiv in KI-Automatisierung. Der Vorsprung wächst jeden Monat.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🔍</div>
+        <div>
+          <h4>Kein Überblick, welche KI-Tools wirklich helfen</h4>
+          <p>Der Markt ist unübersichtlich. Ohne Guidance landet man bei teuren Tools ohne konkreten Mehrwert.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📋</div>
+        <div>
+          <h4>Fehlende Strategie, kein klarer Fahrplan</h4>
+          <p>KI braucht Struktur. Wer ohne Plan startet, verschwendet Budget und verliert den Überblick.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-bg" id="ablauf">
+  <div style="text-align: center;">
+    <div class="section-label">Der Prozess</div>
+    <h2 class="section-title">In 4 Schritten zu<br>Ihrem <em>KI-Fahrplan.</em></h2>
+  </div>
+
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h3>Erstgespräch</h3>
+      <p>Ein strukturiertes 45-minütiges Gespräch — per Telefon oder Video. Wir erfassen Ihre Prozesse, Ihr Team und Ihre größten Zeitfresser.</p>
+    </div>
+    <div class="step reveal" style="transition-delay: 0.1s;">
+      <div class="step-num">02</div>
+      <h3>KI-Analyse</h3>
+      <p>Wir analysieren Ihre Arbeitsabläufe auf KI-Potenziale. Keine Theorie — konkrete Anwendungsfälle für Ihren Betrieb.</p>
+    </div>
+    <div class="step reveal" style="transition-delay: 0.2s;">
+      <div class="step-num">03</div>
+      <h3>Ihr Bericht</h3>
+      <p>Innerhalb von 48 Stunden erhalten Sie einen strukturierten PDF-Bericht mit Top-5-Empfehlungen und ROI-Schätzung.</p>
+    </div>
+    <div class="step reveal" style="transition-delay: 0.3s;">
+      <div class="step-num">04</div>
+      <h3>Debriefing</h3>
+      <p>Wir besprechen den Bericht gemeinsam, beantworten Ihre Fragen und planen die nächsten konkreten Umsetzungsschritte.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="section" id="bericht">
+  <div class="report-section">
+    <div>
+      <div class="section-label">Ihr Ergebnis</div>
+      <h2 class="section-title">Ein Bericht,<br>der <em>wirklich</em><br>etwas bewirkt.</h2>
+      <p class="section-body">
+        Kein generisches Buzzword-Dokument. Ihr KI-Audit ist maßgeschneidert auf Ihren 
+        Betrieb — mit konkreten Tools, realistischen Zeitersparnissen und klaren 
+        nächsten Schritten.
+      </p>
+
+      <div class="benefits-list">
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Ist-Analyse Ihrer Prozesse</h4>
+            <p>Wir dokumentieren genau, wie Sie heute arbeiten — als Basis für alle Empfehlungen.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Top-5 KI-Potenziale</h4>
+            <p>Priorisierte Handlungsfelder mit konkretem Nutzen — sortiert nach schnellstem ROI.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>Tool-Empfehlungen auf Deutsch</h4>
+            <p>Nur Tools mit deutschsprachigem Support und DSGVO-Konformität: Make.com, n8n, MS Copilot u.v.m.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div>
+            <h4>ROI-Schätzung in € und Stunden</h4>
+            <p>Was spart jede Maßnahme konkret? Sie sehen es schwarz auf weiß.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-preview reveal">
+      <div class="report-header">
+        <h4>KI-Audit — Muster GmbH</h4>
+        <span>Erstellt am 14. April 2025 · Vertraulich</span>
+      </div>
+
+      <div class="report-item">
+        <div class="report-num">01</div>
+        <div>
+          <h5>Ist-Analyse</h5>
+          <p>Manuelle Angebotserstellung: ø 3,5 h/Woche. Keine Automatisierung im Rechnungsversand.</p>
+          <span class="report-tag">Zeitfresser identifiziert</span>
+        </div>
+      </div>
+      <div class="report-item">
+        <div class="report-num">02</div>
+        <div>
+          <h5>Potenzial #1 — Angebots-Automatisierung</h5>
+          <p>Make.com + Claude API: Angebote in &lt;5 Min statt 45 Min. Einsparpotenzial: ~12 h/Monat.</p>
+          <span class="report-tag">ROI: € 480/Monat</span>
+        </div>
+      </div>
+      <div class="report-item">
+        <div class="report-num">03</div>
+        <div>
+          <h5>Potenzial #2 — KI-Telefonassistent</h5>
+          <p>Eingehende Anfragen automatisch qualifizieren und weiterleiten — 24/7.</p>
+          <span class="report-tag">Sofort umsetzbar</span>
+        </div>
+      </div>
+      <div class="report-item">
+        <div class="report-num">04</div>
+        <div>
+          <h5>Nächste Schritte</h5>
+          <p>Umsetzung Phase 1 in 2 Wochen möglich. Technische Voraussetzungen vorhanden.</p>
+          <span class="report-tag">Fahrplan vorhanden</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS IT FOR -->
+<section class="section how-bg">
+  <div>
+    <div class="section-label">Zielgruppe</div>
+    <h2 class="section-title">Für wen ist der<br><em>KI-Audit</em> gedacht?</h2>
+  </div>
+
+  <div class="target-grid">
+    <div class="target-card reveal">
+      <span class="target-icon">🔧</span>
+      <h3>Handwerksbetriebe</h3>
+      <p>Angebote, Terminplanung, Kundenkommunikation — hier schlummern oft die größten Einsparpotenziale.</p>
+    </div>
+    <div class="target-card reveal" style="transition-delay:0.1s;">
+      <span class="target-icon">⚖️</span>
+      <h3>Kanzleien & Steuerberater</h3>
+      <p>Dokumentenverarbeitung, Mandantenkommunikation und Recherche lassen sich massiv beschleunigen.</p>
+    </div>
+    <div class="target-card reveal" style="transition-delay:0.2s;">
+      <span class="target-icon">🏭</span>
+      <h3>Industriebetriebe</h3>
+      <p>Von der Bestellabwicklung bis zur Qualitätssicherung: KI schafft Freiräume für Ihr Kerngeschäft.</p>
+    </div>
+    <div class="target-card reveal" style="transition-delay:0.3s;">
+      <span class="target-icon">🛍️</span>
+      <h3>Handel & E-Commerce</h3>
+      <p>Produktbeschreibungen, Kundenservice, Lagerverwaltung — alles Kandidaten für KI-Automatisierung.</p>
+    </div>
+    <div class="target-card reveal" style="transition-delay:0.4s;">
+      <span class="target-icon">🏥</span>
+      <h3>Arztpraxen & Therapeuten</h3>
+      <p>Terminbuchung, Patientenkommunikation und administrative Prozesse effizienter gestalten.</p>
+    </div>
+    <div class="target-card reveal" style="transition-delay:0.5s;">
+      <span class="target-icon">🏗️</span>
+      <h3>Bau & Immobilien</h3>
+      <p>Ausschreibungen, Bauleitung, Kundenkommunikation: Weniger Papierkram, mehr Baufortschritt.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="preise">
+  <div class="section-label">Unsere Angebote</div>
+  <h2 class="section-title">Transparent.<br><em>Fair</em> berechnet.</h2>
+  <p class="section-body">Keine versteckten Kosten. Kein Abo-Zwang. Bezahlen Sie einmalig für Klarheit — und entscheiden Sie danach.</p>
+
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <div class="price-name">KI-Schnellcheck</div>
+      <div class="price-desc">Für Betriebe, die erst mal testen wollen, ob KI für sie relevant ist.</div>
+      <div class="price-amount">€ 300</div>
+      <div class="price-range">bis € 500</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>30-minütiges Erstgespräch</li>
+        <li>1-seitiger Kurzaudit</li>
+        <li>3 konkrete KI-Empfehlungen</li>
+        <li>Lieferung in 24 h</li>
+      </ul>
+      <a href="#kontakt" class="btn-ghost" style="width:100%; text-align:center; display:block;">Anfragen</a>
+    </div>
+
+    <div class="price-card featured reveal" style="transition-delay:0.1s;">
+      <div class="price-badge">Empfohlen</div>
+      <div class="price-name">KI-Audit Standard</div>
+      <div class="price-desc">Das vollständige Audit für Betriebe mit klarem Umsetzungswillen.</div>
+      <div class="price-amount">€ 800</div>
+      <div class="price-range">bis € 1.200</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>45-minütiges Tiefeninterview</li>
+        <li>5-seitiger Strukturbericht</li>
+        <li>Top-5 KI-Potenziale mit ROI</li>
+        <li>Tool-Empfehlungen (DSGVO)</li>
+        <li>1 h Debriefing-Call</li>
+        <li>Lieferung in 48 h</li>
+      </ul>
+      <a href="#kontakt" class="btn-primary" style="width:100%; text-align:center; display:block;">Jetzt anfragen</a>
+    </div>
+
+    <div class="price-card reveal" style="transition-delay:0.2s;">
+      <div class="price-name">KI-Audit Premium</div>
+      <div class="price-desc">Für Betriebe, die direkt mit der Umsetzung starten möchten.</div>
+      <div class="price-amount">€ 1.500</div>
+      <div class="price-range">bis € 2.500</div>
+      <div class="price-divider"></div>
+      <ul class="price-features">
+        <li>Alles aus Standard</li>
+        <li>3-Monats-Umsetzungsroadmap</li>
+        <li>Priorisierter Projektplan</li>
+        <li>Follow-up nach 4 Wochen</li>
+        <li>Optional: Retainer ab € 500/Monat</li>
+      </ul>
+      <a href="#kontakt" class="btn-ghost" style="width:100%; text-align:center; display:block;">Anfragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="kontakt">
+  <div class="section-label">Jetzt starten</div>
+  <h2 class="section-title" style="max-width: 100%;">
+    Ihr Betrieb, <em>klar strukturiert.</em><br>Bereit für KI.
+  </h2>
+  <p class="section-body" style="margin: 1rem auto 0; text-align:center;">
+    Tragen Sie sich jetzt unverbindlich ein. Wir melden uns innerhalb von 24 Stunden 
+    mit einem kostenlosen Erstgespräch.
+  </p>
+
+  <form class="cta-form" name="anfragen" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+    <input type="hidden" name="form-name" value="anfragen">
+    <input type="hidden" name="bot-field" style="display:none">
+    <input type="email" name="email" id="email-input" placeholder="Ihre geschäftliche E-Mail-Adresse" required>
+    <button type="submit" class="btn-primary">Kostenlos anfragen →</button>
+  </form>
+
+  <p class="cta-note">
+    Kein Spam. Keine automatischen Abos. Datenschutzerklärung gilt. 
+    Ihre Daten werden ausschließlich zur Kontaktaufnahme genutzt.
+  </p>
+
+  <div id="success-msg" style="display:none; margin-top:1.5rem; color:var(--green); font-size:0.9rem; letter-spacing:0.05em;">
+    ✓ Danke! Wir melden uns innerhalb von 24 Stunden.
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Kehrwoche<span>.ai</span></div>
+
+  <ul class="footer-links">
+    <li><a href="#">Impressum</a></li>
+    <li><a href="#">Datenschutz</a></li>
+    <li><a href="#">AGB</a></li>
+    <li><a href="mailto:hallo@kehrwoche-ai.de">Kontakt</a></li>
+  </ul>
+
+  <div class="footer-copy">© 2025 kehrwoche-ai.de · Alle Rechte vorbehalten.</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // CTA form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value;
+    document.querySelector('.cta-form').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+    // TODO: connect to your backend / Brevo / HighLevel / Mailchimp
+    console.log('Lead captured:', email);
+  }
+</script>
+</body>
+</html>
