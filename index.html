@@ -1167,10 +1167,17 @@
   // CTA form
   function handleSubmit(e) {
     e.preventDefault();
-    const email = document.getElementById('email-input').value;
-    document.querySelector('.cta-form').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
-    // TODO: connect to your backend / Brevo / HighLevel / Mailchimp
+    const form = e.target;
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    })
+    .then(() => {
+      form.style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+    })
+    .catch(() => alert('Fehler beim Absenden. Bitte versuchen Sie es erneut.'));
   }
 </script>
 </body>
