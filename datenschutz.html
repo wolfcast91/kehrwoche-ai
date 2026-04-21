@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutzerklärung — Kehrwoche AI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0c0c10;
+    --surface: #13131a;
+    --surface2: #1c1c26;
+    --border: #2a2a3a;
+    --accent: #c8a96e;
+    --accent2: #e8c87a;
+    --text: #e8e4dc;
+    --text-muted: #7a7a8e;
+    --text-dim: #4a4a5e;
+    --green: #5fc87a;
+    --radius: 2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  nav, footer, main { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(12, 12, 16, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* ── CONTENT ── */
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 10rem 2rem 8rem;
+  }
+
+  .page-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .intro-date {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    list-style: none;
+    margin-bottom: 0.75rem;
+    padding-left: 0;
+  }
+
+  ul li {
+    color: var(--text-muted);
+    padding-left: 1.25rem;
+    position: relative;
+    margin-bottom: 0.3rem;
+  }
+
+  ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  a:hover { color: var(--accent2); }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .info-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .info-block p {
+    margin-bottom: 0.25rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    main { padding: 8rem 1.5rem 6rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">Kehrwoche<span>.ai</span></a>
+  <ul class="nav-links">
+    <li><a href="/#problem">Warum jetzt?</a></li>
+    <li><a href="/#ablauf">Ablauf</a></li>
+    <li><a href="/#bericht">Ihr Bericht</a></li>
+    <li><a href="/#preise">Preise</a></li>
+  </ul>
+  <a href="https://calendar.app.google/vXfW47UB4RmvFaXS9" target="_blank" rel="noopener" class="nav-cta">Kostenlos anfragen</a>
+</nav>
+
+<main>
+  <div class="page-label">Rechtliches</div>
+  <h1>Datenschutzerklärung</h1>
+  <p class="intro-date">Stand: April 2026</p>
+
+  <!-- 1 -->
+  <h2>1. Verantwortlicher</h2>
+  <div class="info-block">
+    <p><strong>Sascha Wolfer</strong></p>
+    <p>Holzbronnerstraße 49, 75365 Calw</p>
+    <p>E-Mail: <a href="mailto:sascha@kehrwoche-ai.de">sascha@kehrwoche-ai.de</a></p>
+    <p>Telefon: <a href="tel:+491629125291">+49 162 9125291</a></p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 2 -->
+  <h2>2. Allgemeines zur Datenverarbeitung</h2>
+  <p>
+    Wir verarbeiten personenbezogene Daten unserer Nutzer grundsätzlich nur, soweit dies zur
+    Bereitstellung einer funktionsfähigen Website sowie unserer Inhalte und Leistungen erforderlich
+    ist. Die Verarbeitung erfolgt auf Basis der Datenschutz-Grundverordnung (DSGVO) sowie des
+    Bundesdatenschutzgesetzes (BDSG).
+  </p>
+
+  <hr class="divider">
+
+  <!-- 3 -->
+  <h2>3. Hosting — Netlify</h2>
+  <p>
+    Diese Website wird bei <strong>Netlify, Inc.</strong> (44 Montgomery Street, Suite 300,
+    San Francisco, CA 94104, USA) gehostet. Beim Aufruf unserer Website übermittelt Ihr Browser
+    automatisch Daten an die Server von Netlify, u. a.:
+  </p>
+  <ul>
+    <li>IP-Adresse des anfragenden Geräts</li>
+    <li>Datum und Uhrzeit des Abrufs</li>
+    <li>Browsertyp und Browserversion</li>
+    <li>Betriebssystem</li>
+    <li>Referrer-URL</li>
+  </ul>
+  <p>
+    Diese Daten werden in sog. Server-Log-Dateien gespeichert und nach spätestens 30 Tagen gelöscht.
+    Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse
+    an der sicheren und stabilen Bereitstellung der Website).
+  </p>
+  <p>
+    Da Netlify ein US-amerikanisches Unternehmen ist, werden Daten in die USA übertragen.
+    Netlify ist unter dem EU-U.S. Data Privacy Framework zertifiziert. Weitere Informationen:
+    <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">https://www.netlify.com/privacy/</a>.
+  </p>
+
+  <hr class="divider">
+
+  <!-- 4 -->
+  <h2>4. Kontaktformular</h2>
+  <p>
+    Auf unserer Website bieten wir ein Kontaktformular an, das über den Dienst
+    <strong>Netlify Forms</strong> verarbeitet wird. Wenn Sie das Formular absenden, werden die
+    von Ihnen eingegebenen Daten (E-Mail-Adresse) an Netlify übertragen und dort gespeichert.
+  </p>
+  <p>
+    Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Durchführung
+    vorvertraglicher Maßnahmen) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der
+    Bearbeitung von Anfragen). Die übermittelten Daten werden ausschließlich zur Beantwortung Ihrer
+    Anfrage und zur Kontaktaufnahme genutzt. Eine Weitergabe an Dritte findet nicht statt.
+  </p>
+  <p>
+    Sie können der Speicherung jederzeit widersprechen, soweit keine gesetzliche Aufbewahrungspflicht
+    besteht. Richten Sie Ihren Widerspruch per E-Mail an:
+    <a href="mailto:sascha@kehrwoche-ai.de">sascha@kehrwoche-ai.de</a>.
+  </p>
+
+  <hr class="divider">
+
+  <!-- 5 -->
+  <h2>5. Google Fonts</h2>
+  <p>
+    Diese Website verwendet <strong>Google Fonts</strong> (Google Ireland Limited, Gordon House,
+    Barrow Street, Dublin 4, Irland). Beim Laden der Seite stellt Ihr Browser eine direkte Verbindung
+    zu den Servern von Google her, wobei Ihre IP-Adresse übermittelt wird.
+  </p>
+  <p>
+    Die Nutzung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an
+    einheitlicher und ansprechender Darstellung unserer Inhalte). Weitere Informationen:
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>.
+  </p>
+
+  <hr class="divider">
+
+  <!-- 6 -->
+  <h2>6. Google Calendar (Terminbuchung)</h2>
+  <p>
+    Für die Terminbuchung verlinken wir auf den Dienst <strong>Google Calendar / Google Appointment
+    Scheduling</strong> (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland).
+    Wenn Sie auf den Buchungslink klicken, verlassen Sie unsere Website und werden direkt zu Google
+    weitergeleitet. Die Datenschutzbestimmungen von Google gelten:
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a>.
+  </p>
+  <p>
+    Mit dem Klick auf den Link willigen Sie gemäß Art. 6 Abs. 1 lit. a DSGVO in die Verarbeitung
+    durch Google ein. Im Rahmen der Terminbuchung verarbeitete Daten (Name, E-Mail-Adresse) werden
+    zur Durchführung des vereinbarten Termins genutzt (Art. 6 Abs. 1 lit. b DSGVO).
+  </p>
+
+  <hr class="divider">
+
+  <!-- 7 -->
+  <h2>7. Einsatz von KI-Diensten</h2>
+  <p>
+    Zur Erbringung unserer Beratungsleistungen (KI-Audit) nutzen wir KI-gestützte Werkzeuge und
+    Sprachmodelle von Drittanbietern. Dabei werden keine personenbezogenen Daten unserer Website-Nutzer
+    an diese Dienste weitergegeben. Sofern im Rahmen eines Auftrags Daten verarbeitet werden, die
+    Ihr Unternehmen betreffen, erfolgt dies ausschließlich auf Basis eines gesonderten
+    Auftragsverarbeitungsvertrags (Art. 28 DSGVO) oder einer Einwilligung der betroffenen Personen.
+    Einzelheiten regeln die jeweiligen Projektvereinbarungen.
+  </p>
+
+  <hr class="divider">
+
+  <!-- 8 -->
+  <h2>8. Cookies</h2>
+  <p>
+    Diese Website setzt keine eigenen Tracking- oder Marketing-Cookies ein. Netlify kann technisch
+    notwendige Cookies zur Sicherheit und zum Schutz des Dienstes setzen. Diese sind auf Grundlage
+    von Art. 6 Abs. 1 lit. f DSGVO zulässig und erfordern keine Einwilligung.
+  </p>
+
+  <hr class="divider">
+
+  <!-- 9 -->
+  <h2>9. Ihre Rechte</h2>
+  <p>Sie haben gegenüber uns folgende Rechte hinsichtlich Ihrer personenbezogenen Daten:</p>
+  <ul>
+    <li><strong>Auskunft</strong> (Art. 15 DSGVO) — Sie können Auskunft über die bei uns gespeicherten Daten verlangen.</li>
+    <li><strong>Berichtigung</strong> (Art. 16 DSGVO) — Sie können die Berichtigung unrichtiger Daten verlangen.</li>
+    <li><strong>Löschung</strong> (Art. 17 DSGVO) — Sie können die Löschung Ihrer Daten verlangen, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</li>
+    <li><strong>Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+    <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+    <li><strong>Widerspruch</strong> (Art. 21 DSGVO) — Sie können der Verarbeitung Ihrer Daten widersprechen, soweit diese auf Art. 6 Abs. 1 lit. f DSGVO beruht.</li>
+    <li><strong>Widerruf einer Einwilligung</strong> (Art. 7 Abs. 3 DSGVO) — Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen.</li>
+  </ul>
+  <p>
+    Zur Ausübung Ihrer Rechte wenden Sie sich an:
+    <a href="mailto:sascha@kehrwoche-ai.de">sascha@kehrwoche-ai.de</a>.
+  </p>
+
+  <hr class="divider">
+
+  <!-- 10 -->
+  <h2>10. Beschwerderecht bei der Aufsichtsbehörde</h2>
+  <p>
+    Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer
+    personenbezogenen Daten zu beschweren. Die für uns zuständige Aufsichtsbehörde ist:
+  </p>
+  <div class="info-block">
+    <p><strong>Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg</strong></p>
+    <p>Postfach 10 29 32, 70025 Stuttgart</p>
+    <p>Telefon: +49 711 615541-0</p>
+    <p>E-Mail: <a href="mailto:poststelle@lfdi.bwl.de">poststelle@lfdi.bwl.de</a></p>
+    <p>Web: <a href="https://www.baden-wuerttemberg.datenschutz.de" target="_blank" rel="noopener">www.baden-wuerttemberg.datenschutz.de</a></p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- 11 -->
+  <h2>11. Aktualität und Änderungen dieser Datenschutzerklärung</h2>
+  <p>
+    Diese Datenschutzerklärung hat den Stand April 2026. Wir behalten uns vor, sie bei Bedarf
+    anzupassen, um sie stets den aktuellen rechtlichen Anforderungen oder Änderungen unserer
+    Leistungen anzupassen. Die jeweils aktuelle Version ist auf dieser Seite abrufbar.
+  </p>
+</main>
+
+<footer>
+  <div class="footer-logo">Kehrwoche<span>.ai</span></div>
+
+  <ul class="footer-links">
+    <li><a href="/impressum.html">Impressum</a></li>
+    <li><a href="/datenschutz.html">Datenschutz</a></li>
+    <li><a href="#">AGB</a></li>
+    <li><a href="mailto:hallo@kehrwoche-ai.de">Kontakt</a></li>
+  </ul>
+
+  <div class="footer-copy">© 2025 kehrwoche-ai.de · Alle Rechte vorbehalten.</div>
+</footer>
+
+</body>
+</html>
