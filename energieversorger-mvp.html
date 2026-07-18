@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>encw - digital — Gründungs-Cockpit für weiße-Label-Energieversorger (MVP)</title>
+<meta name="description" content="Klickbarer MVP-Prototyp: Gründungs-Cockpit für encw - digital, einen neuen, weiße-Label-fähigen Energieversorger. Gewerbeanmeldung für Stuttgart, Karlsruhe und Pforzheim inklusive gemockter Behörden-Schnittstellen.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #070b12;
+    --surface: #0d1420;
+    --surface2: #131d2c;
+    --surface3: #1a2740;
+    --border: #22314a;
+    --accent: #3ddc97;
+    --accent2: #5ee6c8;
+    --accent-ink: #04140d;
+    --blue: #4f8dfd;
+    --amber: #f5b942;
+    --red: #ef6a6a;
+    --text: #e9eef5;
+    --text-muted: #8ea0b8;
+    --text-dim: #56667f;
+    --radius: 12px;
+    --radius-sm: 7px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: radial-gradient(ellipse 1200px 600px at 50% -10%, #0f1c2e 0%, var(--bg) 55%);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 15.5px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  a { color: inherit; }
+
+  /* ── MOCK BANNER ── */
+  .mock-banner {
+    background: linear-gradient(90deg, #2b1a08, #1a1005);
+    border-bottom: 1px solid #4a3418;
+    color: var(--amber);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    text-align: center;
+    padding: 0.55rem 1rem;
+  }
+  .mock-banner b { color: #ffd88a; }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(7, 11, 18, 0.85);
+    backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 50;
+    flex-wrap: wrap; gap: 0.75rem;
+  }
+  .nav-left { display: flex; align-items: center; gap: 0.9rem; }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: var(--accent-ink); font-family: 'Fraunces', serif;
+    flex-shrink: 0;
+  }
+  .nav-brandblock { line-height: 1.25; }
+  .nav-logo {
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.15rem;
+    letter-spacing: 0.01em;
+  }
+  .nav-tagline { font-size: 0.72rem; color: var(--text-muted); }
+  .nav-right { display: flex; align-items: center; gap: 0.9rem; }
+  .brand-switch {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 999px; padding: 0.35rem 0.9rem 0.35rem 0.7rem;
+    font-size: 0.75rem; color: var(--text-muted);
+  }
+  .brand-switch select {
+    background: transparent; border: none; color: var(--text);
+    font-family: 'Outfit', sans-serif; font-size: 0.78rem; outline: none; cursor: pointer;
+  }
+  .brand-switch select option { background: var(--surface2); color: var(--text); }
+  .pill-env {
+    font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; border-radius: 999px;
+    background: rgba(245, 185, 66, 0.12); border: 1px solid rgba(245, 185, 66, 0.35);
+    color: var(--amber);
+  }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 2.5rem 2.5rem 5rem; }
+
+  /* ── HERO / STATS ── */
+  .hero { margin-bottom: 2.2rem; }
+  .hero h1 {
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 2.1rem;
+    letter-spacing: -0.01em; margin-bottom: 0.5rem;
+  }
+  .hero p.lead { color: var(--text-muted); max-width: 62ch; font-size: 0.98rem; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.8rem; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+  }
+  .stat-card .num { font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 700; color: var(--accent2); }
+  .stat-card .label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .progress-track {
+    height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden; margin-top: 0.6rem;
+  }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 999px; transition: width .5s ease; }
+
+  /* ── SECTION HEAD ── */
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 2.4rem 0 1rem; }
+  .section-head h2 { font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 700; }
+  .section-head span { font-size: 0.8rem; color: var(--text-dim); }
+
+  /* ── MODULE GRID ── */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.3rem; cursor: pointer; transition: border-color .15s, transform .15s;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .card-icon { font-size: 1.4rem; }
+  .card h3 { font-size: 0.98rem; font-weight: 500; }
+  .card p { font-size: 0.82rem; color: var(--text-muted); flex-grow: 1; }
+  .card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 0.4rem; }
+
+  .badge {
+    font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.25rem 0.6rem; border-radius: 999px; font-weight: 500;
+  }
+  .badge-open { background: rgba(79,141,253,0.14); color: var(--blue); border: 1px solid rgba(79,141,253,0.3); }
+  .badge-done { background: rgba(61,220,151,0.14); color: var(--accent); border: 1px solid rgba(61,220,151,0.35); }
+  .badge-auto { background: rgba(245,185,66,0.12); color: var(--amber); border: 1px solid rgba(245,185,66,0.3); }
+  .badge-info { background: rgba(142,160,184,0.12); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .card-cta { font-size: 0.75rem; color: var(--accent2); }
+
+  /* ── WIZARD ── */
+  .hidden { display: none !important; }
+  .wizard-wrap {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; margin-top: 1rem;
+  }
+  .wizard-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border);
+  }
+  .wizard-head h2 { font-family: 'Fraunces', serif; font-size: 1.1rem; }
+  .btn-back { font-size: 0.8rem; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+  .btn-back:hover { color: var(--text); }
+
+  .stepper { display: flex; gap: 0.5rem; padding: 1rem 1.5rem 0; flex-wrap: wrap; }
+  .step-pill {
+    flex: 1; min-width: 120px; text-align: center; padding: 0.55rem 0.5rem;
+    border-radius: var(--radius-sm); font-size: 0.72rem; color: var(--text-dim);
+    background: var(--surface2); border: 1px solid var(--border); position: relative;
+  }
+  .step-pill .n {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--surface3);
+    font-size: 0.65rem; margin-right: 0.35rem;
+  }
+  .step-pill.active { border-color: var(--accent); color: var(--text); background: rgba(61,220,151,0.08); }
+  .step-pill.active .n { background: var(--accent); color: var(--accent-ink); }
+  .step-pill.complete { color: var(--accent2); }
+  .step-pill.complete .n { background: var(--accent2); color: var(--accent-ink); }
+
+  .wizard-body { padding: 1.6rem 1.5rem 1.8rem; }
+  .step-title { font-size: 1.02rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .step-sub { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.3rem; }
+
+  .city-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+  .city-card {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.1rem; cursor: pointer; transition: border-color .15s;
+  }
+  .city-card:hover { border-color: var(--accent2); }
+  .city-card.selected { border-color: var(--accent); background: rgba(61,220,151,0.06); }
+  .city-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .city-card .office { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+  .city-meta { font-size: 0.74rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 0.25rem; }
+  .city-meta b { color: var(--text-muted); font-weight: 400; }
+  .fee-tag { display: inline-block; margin-top: 0.6rem; font-size: 0.72rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--surface3); color: var(--accent2); }
+
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .field.full { grid-column: 1 / -1; }
+  .field label { font-size: 0.78rem; color: var(--text-muted); }
+  .field input, .field select, .field textarea {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 0.6rem 0.75rem; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 0.88rem;
+    outline: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+  .field textarea { resize: vertical; min-height: 64px; }
+  .hint { font-size: 0.72rem; color: var(--text-dim); }
+
+  .upload-zone {
+    border: 1.5px dashed var(--border); border-radius: var(--radius);
+    padding: 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.85rem;
+    cursor: pointer; transition: border-color .15s, background .15s; margin-bottom: 0.9rem;
+  }
+  .upload-zone:hover { border-color: var(--accent2); background: rgba(94,230,200,0.04); }
+  .doc-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .doc-item {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 0.6rem 0.9rem; font-size: 0.82rem;
+  }
+  .doc-item .doc-name { display: flex; align-items: center; gap: 0.5rem; }
+  .doc-item .remove { color: var(--red); cursor: pointer; font-size: 0.78rem; }
+
+  .summary-block { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.3rem; margin-bottom: 1rem; }
+  .summary-row { display: flex; justify-content: space-between; padding: 0.45rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row .k { color: var(--text-muted); }
+
+  .json-panel {
+    background: #060a10; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 1rem 1.1rem; font-size: 0.78rem; overflow-x: auto; white-space: pre; color: #9fd8c0;
+    margin-top: 0.7rem;
+  }
+  .json-panel .k2 { color: #7fb0ff; }
+  .json-panel .s { color: #f5b942; }
+  .call-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--text-dim); margin-top: 1rem; }
+  .call-label .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-dim); }
+  .call-label.live .dot { background: var(--amber); animation: pulse 1s infinite; }
+  .call-label.done .dot { background: var(--accent); animation: none; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .timeline { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1rem; }
+  .timeline-item { display: flex; gap: 0.8rem; align-items: flex-start; }
+  .timeline-dot {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 0.7rem;
+    background: var(--surface3); color: var(--text-dim); margin-top: 0.1rem;
+  }
+  .timeline-item.done .timeline-dot { background: var(--accent); color: var(--accent-ink); }
+  .timeline-item.pending .timeline-dot { background: rgba(245,185,66,0.18); color: var(--amber); }
+  .timeline-text b { font-size: 0.85rem; }
+  .timeline-text p { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.1rem; }
+
+  .wizard-foot { display: flex; justify-content: space-between; padding: 1.2rem 1.5rem; border-top: 1px solid var(--border); }
+
+  .btn {
+    padding: 0.65rem 1.3rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text);
+    font-family: 'Outfit', sans-serif; transition: opacity .15s, transform .1s;
+  }
+  .btn:hover { opacity: 0.9; }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--accent-ink); border: none; }
+  .btn-ghost { background: transparent; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(4,6,10,0.72); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; z-index: 200; padding: 1.5rem;
+  }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    max-width: 560px; width: 100%; max-height: 85vh; overflow-y: auto;
+  }
+  .modal-head { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border); }
+  .modal-head h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; }
+  .modal-close { cursor: pointer; color: var(--text-muted); font-size: 1.1rem; }
+  .modal-body { padding: 1.3rem 1.4rem 1.6rem; }
+  .modal-body p.desc { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem; }
+  .req-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .req-list li { font-size: 0.82rem; color: var(--text); display: flex; gap: 0.5rem; }
+  .req-list li::before { content: "—"; color: var(--text-dim); }
+
+  footer { border-top: 1px solid var(--border); padding: 2.5rem; margin-top: 2rem; }
+  .foot-wrap { max-width: 1180px; margin: 0 auto; }
+  footer h4 { font-size: 0.85rem; margin-bottom: 0.8rem; color: var(--text-muted); }
+  .source-list { font-size: 0.74rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 0.3rem; }
+  .source-list a { color: var(--text-dim); text-decoration: underline; text-decoration-color: var(--border); }
+  .source-list a:hover { color: var(--accent2); }
+  .foot-disclaimer { font-size: 0.72rem; color: var(--text-dim); margin-top: 1.2rem; max-width: 80ch; }
+
+  @media (max-width: 900px) {
+    .stat-row, .grid, .city-grid, .field-grid { grid-template-columns: 1fr; }
+    main { padding: 1.5rem; }
+    nav { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mock-banner">⚠ <b>DEMO / MVP —</b> Alle Behörden- und Systemschnittstellen auf dieser Seite sind <b>vollständig simuliert (Mock)</b>. Es werden keine echten Anmeldungen übermittelt und keine Daten gespeichert oder versendet.</div>
+
+<nav>
+  <div class="nav-left">
+    <div class="logo-mark" id="logoMark">e</div>
+    <div class="nav-brandblock">
+      <div class="nav-logo" id="brandName">encw - digital</div>
+      <div class="nav-tagline" id="brandTagline">Gründungs-Cockpit · White-Label Energieversorger</div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="brand-switch">
+      🎨 White-Label
+      <select id="brandSelect" onchange="applyBrand(this.value)">
+        <option value="encw">encw - digital (Standard)</option>
+        <option value="mandantB">Demo-Mandant B (weißes Label)</option>
+        <option value="mandantC">Demo-Mandant C (weißes Label)</option>
+      </select>
+    </div>
+    <span class="pill-env">MVP · Mock-Umgebung</span>
+  </div>
+</nav>
+
+<main>
+  <div id="view-dashboard">
+    <div class="hero">
+      <h1>Gründungs-Cockpit</h1>
+      <p class="lead">Alle behördlichen, regulatorischen und technischen Schritte für den Start eines neuen Energieversorgers 2026 — an einem Ort. Diese Oberfläche ist white-label-fähig: Marke, Farben und Firmierung lassen sich pro Mandant austauschen (siehe Umschalter oben rechts).</p>
+
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="num" id="statProgress">0%</div>
+          <div class="label">Gründungsfortschritt</div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        </div>
+        <div class="stat-card">
+          <div class="num" id="statDone">0 / 8</div>
+          <div class="label">Schritte erledigt</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">3</div>
+          <div class="label">Aktive Kommunen</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">2026</div>
+          <div class="label">Gründungsjahr</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>Gründungsschritte</h2>
+      <span>Klicken zum Öffnen</span>
+    </div>
+    <div class="grid" id="moduleGrid"></div>
+  </div>
+
+  <!-- ═══ GEWERBEANMELDUNG WIZARD ═══ -->
+  <div id="view-gewerbe" class="hidden">
+    <div class="wizard-wrap">
+      <div class="wizard-head">
+        <h2>📋 Gewerbeanmeldung</h2>
+        <div class="btn-back" onclick="goDashboard()">← Zurück zum Cockpit</div>
+      </div>
+      <div class="stepper" id="stepper"></div>
+      <div class="wizard-body" id="wizardBody"></div>
+      <div class="wizard-foot">
+        <button class="btn btn-ghost" id="btnPrev" onclick="prevStep()">Zurück</button>
+        <button class="btn btn-primary" id="btnNext" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="modalRoot"></div>
+
+<footer>
+  <div class="foot-wrap">
+    <h4>Recherchierte Behördenquellen (Stand: Juli 2026)</h4>
+    <div class="source-list">
+      <span>Stuttgart — Amt für öffentliche Ordnung, Gewerbe- und Gaststättenrecht: <a href="https://www.stuttgart.de/en/organigramm/leistungen/gewerbe-anmelden" target="_blank" rel="noopener">stuttgart.de</a>, <a href="https://www.gewerbe-anmelden.info/gewerbeamt/stuttgart" target="_blank" rel="noopener">gewerbe-anmelden.info</a></span>
+      <span>Karlsruhe — Ordnungs- und Bürgeramt, Gaststätten- und Gewerberecht: <a href="https://web1.karlsruhe.de/service/Buergerdienste/leistung.php?id=6004499" target="_blank" rel="noopener">karlsruhe.de Bürgerdienste</a></span>
+      <span>Pforzheim — Amt für öffentliche Ordnung (Gewerbeamt): <a href="https://www.pforzheim.de/buerger/buergerservice/pf/service-bw/lebenslagen/show/5001332-gewerbeanmeldung-und-gewerbeabmeldung.html" target="_blank" rel="noopener">pforzheim.de</a></span>
+    </div>
+    <p class="foot-disclaimer">Adressen, Gebühren und Öffnungszeiten wurden im Juli 2026 öffentlich recherchiert und können sich ändern — bitte vor einer echten Anmeldung auf der jeweiligen Amtsseite verifizieren. Diese Seite ist ein nicht-produktiver MVP-Prototyp zu Demonstrationszwecken; sämtliche API-Aufrufe laufen gegen reservierte <span class="mono">.invalid</span>-Domains und finden nicht wirklich statt.</p>
+  </div>
+</footer>
+
+<script>
+/* ══════════════ BRAND / WHITE-LABEL ══════════════ */
+const BRANDS = {
+  encw:     { name: 'encw - digital', tag: 'Gründungs-Cockpit · White-Label Energieversorger',        accent: '#3ddc97', accent2: '#5ee6c8', mark: 'e', firma: 'encw - digital GmbH' },
+  mandantB: { name: 'Stadtstrom',     tag: 'Gründungs-Cockpit · Ihr Strom aus der Region (Demo-Mandant)', accent: '#4f8dfd', accent2: '#7fb0ff', mark: 'S', firma: 'Stadtstrom Energie GmbH' },
+  mandantC: { name: 'NeoEnergie',     tag: 'Gründungs-Cockpit · Energievertrieb, neu gedacht (Demo-Mandant)', accent: '#f5b942', accent2: '#ffd270', mark: 'N', firma: 'NeoEnergie Vertrieb GmbH' },
+};
+function applyBrand(key) {
+  const b = BRANDS[key];
+  document.documentElement.style.setProperty('--accent', b.accent);
+  document.documentElement.style.setProperty('--accent2', b.accent2);
+  document.getElementById('brandName').textContent = b.name;
+  document.getElementById('brandTagline').textContent = b.tag;
+  document.getElementById('logoMark').textContent = b.mark;
+  document.title = b.name + ' — Gründungs-Cockpit für weiße-Label-Energieversorger (MVP)';
+  companyState.firma = b.firma;
+  if (document.getElementById('inpFirma')) document.getElementById('inpFirma').value = companyState.firma;
+}
+
+/* ══════════════ CITY DATA (recherchiert Juli 2026) ══════════════ */
+const CITIES = {
+  stuttgart: {
+    label: 'Stuttgart',
+    office: 'Amt für öffentliche Ordnung — Gewerbe- und Gaststättenrecht',
+    address: 'Eberhardstraße 37, 70173 Stuttgart',
+    phone: '0711 216-98906', fax: '0711 216-89906',
+    email: 'gewerberecht@stuttgart.de',
+    fee: '42,00 €',
+    hours: 'Mo 08:30–13:00 · Di geschlossen · Mi 08:30–13:00 · Do 13:00–18:00 · Fr 08:30–13:00',
+    portal: 'service-bw.de / stuttgart.de',
+    ihk: 'IHK Region Stuttgart',
+    endpoint: 'https://api.gewerbeamt-stuttgart.invalid/v1/gewerbeanmeldungen',
+  },
+  karlsruhe: {
+    label: 'Karlsruhe',
+    office: 'Ordnungs- und Bürgeramt — Gaststätten- und Gewerberecht',
+    address: 'Kaiserallee 8, 76133 Karlsruhe',
+    phone: '0721 133-3387', fax: '0721 133-3290',
+    email: 'gewerbewesen@oa.karlsruhe.de',
+    fee: '53,00 €',
+    hours: 'Mo–Mi 08:00–12:30 · Do 14:00–17:00 · Fr 08:00–12:30',
+    portal: 'karlsruhe.de Bürgerdienste / service-bw.de',
+    ihk: 'IHK Karlsruhe',
+    endpoint: 'https://api.gewerbeamt-karlsruhe.invalid/v1/gewerbeanmeldungen',
+  },
+  pforzheim: {
+    label: 'Pforzheim',
+    office: 'Amt für öffentliche Ordnung (Gewerbeamt)',
+    address: 'Östliche Karl-Friedrich-Straße 37a, 75175 Pforzheim',
+    phone: '07231 39-2539', fax: '07231 39-3157',
+    email: 'afo@stadt-pforzheim.de',
+    fee: 'ca. 50,00 €',
+    hours: 'Mo–Mi 08:00–12:00 · Do 14:00–18:00 · Fr 08:00–12:00',
+    portal: 'pforzheim.de / service-bw.de',
+    ihk: 'IHK Nordschwarzwald',
+    endpoint: 'https://api.gewerbeamt-pforzheim.invalid/v1/gewerbeanmeldungen',
+  },
+};
+
+/* ══════════════ MODULES (Dashboard) ══════════════ */
+const MODULES = [
+  { id: 'gewerbe', icon: '📋', title: 'Gewerbeanmeldung', desc: 'Anmeldung des Gewerbebetriebs bei den zuständigen Ordnungsämtern in Stuttgart, Karlsruhe und Pforzheim.', status: 'open', action: 'wizard' },
+  { id: 'notar', icon: '⚖️', title: 'Notartermin & Handelsregister', desc: 'Gesellschaftsvertrag beurkunden lassen, GmbH ins Handelsregister (HRB) beim zuständigen Amtsgericht eintragen.', status: 'template', action: 'modal',
+    reqs: ['Gesellschaftsvertrag / Satzung', 'Gesellschafterliste', 'Stammkapital-Nachweis (mind. 25.000 € bei GmbH)'],
+    endpoint: 'https://api.handelsregister.invalid/v1/hrb-antraege',
+    payload: { firma: '{{FIRMA}}', rechtsform: 'GmbH', stammkapital: '25.000 EUR', sitz: '{{SITZ}}' } },
+  { id: 'finanzamt', icon: '🧾', title: 'Finanzamt — Steuerliche Erfassung', desc: 'Fragebogen zur steuerlichen Erfassung (ELSTER), Vergabe von Steuernummer und USt-IdNr.', status: 'auto', action: 'modal',
+    reqs: ['Wird automatisch nach Gewerbeanmeldung durch das Ordnungsamt angestoßen', 'Handelsregisterauszug', 'Prognose Umsatz/Gewinn Jahr 1 & 2'],
+    endpoint: 'https://api.elster.invalid/v1/fragebogen-steuerliche-erfassung',
+    payload: { taetigkeit: 'Vertrieb von Strom und Erdgas an Endkunden', rechtsform: 'GmbH', firma: '{{FIRMA}}' } },
+  { id: 'mastr', icon: '🔌', title: 'Marktstammdatenregister (MaStR)', desc: 'Registrierung als Energielieferant bei der Bundesnetzagentur — Pflicht vor Markteintritt gem. § 111e EnWG.', status: 'open', action: 'modal',
+    reqs: ['Marktrolle „Lieferant" für Strom und/oder Gas anlegen', 'Verantwortliche Person benennen', 'Nach Gründung: Handelsregisternummer nachtragen'],
+    endpoint: 'https://api.marktstammdatenregister.invalid/v1/marktakteure',
+    payload: { marktrolle: 'Lieferant', sparte: ['Strom', 'Gas'], firma: '{{FIRMA}}' } },
+  { id: 'netz', icon: '🔗', title: 'Bilanzkreis & Netznutzung', desc: 'Bilanzkreisvertrag mit dem Übertragungsnetzbetreiber, Lieferantenrahmenverträge mit Verteilnetzbetreibern (GPKE / GeLi Gas, MaKo 2026).', status: 'open', action: 'modal',
+    reqs: ['MaStR-Registrierung abgeschlossen', 'Bonitätsnachweis / Sicherheitsleistung', 'Marktkommunikations-Anbindung (EDIFACT/MaKo)'],
+    endpoint: 'https://api.uebertragungsnetzbetreiber.invalid/v1/bilanzkreisantraege',
+    payload: { regelzone: 'TransnetBW', marktrolle: 'Lieferant', firma: '{{FIRMA}}' } },
+  { id: 'kaution', icon: '🛡️', title: 'Sicherheitsleistung / Bonität', desc: 'Bankbürgschaft oder Kaution gegenüber Netzbetreibern als Bonitätsnachweis für neue Lieferanten.', status: 'info', action: 'modal',
+    reqs: ['Wird risikobasiert vom Netzbetreiber festgelegt', 'Meist Bankbürgschaft oder Barkaution', 'Höhe abhängig von erwartetem Liefervolumen'],
+    endpoint: 'https://api.netzbetreiber-bonitaet.invalid/v1/sicherheitsleistungen',
+    payload: { firma: '{{FIRMA}}', sicherheitsart: 'Bankbürgschaft' } },
+  { id: 'ihk', icon: '🏛️', title: 'IHK-Mitgliedschaft', desc: 'Automatische Pflichtmitgliedschaft bei der zuständigen IHK nach Gewerbeanmeldung, Beitrag je nach Gewerbeertrag.', status: 'auto', action: 'modal',
+    reqs: ['Erfolgt automatisch nach Eingang der Gewerbeanmeldung', 'Zuständigkeit richtet sich nach Betriebssitz'],
+    endpoint: 'https://api.ihk.invalid/v1/mitgliedschaften',
+    payload: { status: 'automatisch nach Gewerbeanmeldung', firma: '{{FIRMA}}' } },
+  { id: 'plattform', icon: '💻', title: 'White-Label Plattform Setup', desc: 'Billing, CRM, Smart-Meter-Gateway-Anbindung und Kundenportal für den Vertriebsstart konfigurieren.', status: 'template', action: 'modal',
+    reqs: ['Mandant in der Plattform anlegen', 'Preisblätter & Tarife hinterlegen', 'SMGW- und Marktkommunikations-Schnittstellen verbinden'],
+    endpoint: 'https://api.encw-digital-platform.invalid/v1/tenants',
+    payload: { mandant: '{{FIRMA}}', module: ['Billing', 'CRM', 'SMGW-Anbindung', 'Kundenportal'] } },
+];
+
+const STATUS_LABEL = { open: 'Offen', done: 'Erledigt', auto: 'Automatisch', info: 'Info', template: 'Vorlage' };
+const STATUS_CLASS = { open: 'badge-open', done: 'badge-done', auto: 'badge-auto', info: 'badge-info', template: 'badge-info' };
+
+const completed = new Set();
+
+function renderDashboard() {
+  const grid = document.getElementById('moduleGrid');
+  grid.innerHTML = MODULES.map(m => {
+    const status = completed.has(m.id) ? 'done' : m.status;
+    return `
+    <div class="card" onclick="openModule('${m.id}')">
+      <div class="card-top">
+        <div class="card-icon">${m.icon}</div>
+        <span class="badge ${STATUS_CLASS[status]}">${STATUS_LABEL[status]}</span>
+      </div>
+      <h3>${m.title}</h3>
+      <p>${m.desc}</p>
+      <div class="card-foot"><span class="card-cta">${m.action === 'wizard' ? 'Workflow öffnen →' : 'Details & Schnittstelle →'}</span></div>
+    </div>`;
+  }).join('');
+  updateStats();
+}
+
+function updateStats() {
+  const total = MODULES.length;
+  const done = completed.size;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('statProgress').textContent = pct + '%';
+  document.getElementById('statDone').textContent = done + ' / ' + total;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function openModule(id) {
+  const m = MODULES.find(x => x.id === id);
+  if (m.action === 'wizard') { goWizard(); return; }
+  renderModuleModal(m);
+}
+
+function renderModuleModal(m) {
+  const payload = JSON.stringify(m.payload, null, 2).replace('{{FIRMA}}', companyState.firma).replace('"{{SITZ}}"', '"' + (companyState.city ? CITIES[companyState.city].label : 'wird in Gewerbeanmeldung gewählt') + '"');
+  document.getElementById('modalRoot').innerHTML = `
+  <div class="modal-overlay" onclick="if(event.target===this) closeModal()">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>${m.icon} ${m.title}</h3>
+        <div class="modal-close" onclick="closeModal()">✕</div>
+      </div>
+      <div class="modal-body">
+        <p class="desc">${m.desc}</p>
+        <ul class="req-list">${m.reqs.map(r => `<li>${r}</li>`).join('')}</ul>
+        <div class="json-panel" id="modalJson">POST ${m.endpoint}
+${payload}</div>
+        <div class="call-label" id="modalCallLabel"><span class="dot"></span> Schnittstelle bereit (Mock, .invalid-Domain)</div>
+        <div style="margin-top:1.2rem; display:flex; gap:0.6rem;">
+          <button class="btn btn-primary" onclick="mockCall('${m.id}')" id="modalCallBtn">Anfrage senden (Mock)</button>
+          <button class="btn btn-ghost" onclick="closeModal()">Schließen</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function closeModal() { document.getElementById('modalRoot').innerHTML = ''; }
+
+function mockCall(id) {
+  const btn = document.getElementById('modalCallBtn');
+  const label = document.getElementById('modalCallLabel');
+  btn.disabled = true; btn.textContent = 'Sende...';
+  label.className = 'call-label live'; label.innerHTML = '<span class="dot"></span> Verbindung zu Mock-Endpunkt wird simuliert…';
+  setTimeout(() => {
+    const ref = mockRef();
+    label.className = 'call-label done';
+    label.innerHTML = `<span class="dot"></span> Antwort erhalten (simuliert) · Referenz ${ref}`;
+    const panel = document.getElementById('modalJson');
+    panel.textContent += `\n\n// ← Mock-Response (HTTP 202)\n{\n  "status": "angenommen",\n  "referenz": "${ref}",\n  "zeitstempel": "${new Date().toISOString()}",\n  "hinweis": "Simulierte Schnittstelle – keine reale Übertragung"\n}`;
+    btn.textContent = 'Übermittelt ✓';
+    completed.add(id);
+    renderDashboard();
+  }, 1100);
+}
+
+function mockRef() {
+  return 'MOCK-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+}
+
+/* ══════════════ GEWERBEANMELDUNG WIZARD ══════════════ */
+const companyState = {
+  firma: 'encw - digital GmbH',
+  rechtsform: 'GmbH',
+  hrb: '',
+  geschaeftsfuehrer: '',
+  taetigkeit: 'Vertrieb von Strom und Erdgas an Haushalts- und Gewerbekunden (Energielieferant gem. § 5 EnWG)',
+  beginn: '',
+  mitarbeiter: '1-10',
+  city: null,
+  docs: [],
+  submitted: false,
+  ref: null,
+};
+
+const STEPS = ['Stadt wählen', 'Unternehmensdaten', 'Dokumente', 'Prüfung', 'Übermittlung'];
+let currentStep = 0;
+
+function goWizard() {
+  document.getElementById('view-dashboard').classList.add('hidden');
+  document.getElementById('view-gewerbe').classList.remove('hidden');
+  currentStep = 0;
+  renderStepper(); renderStepBody();
+}
+function goDashboard() {
+  document.getElementById('view-gewerbe').classList.add('hidden');
+  document.getElementById('view-dashboard').classList.remove('hidden');
+  renderDashboard();
+}
+
+function renderStepper() {
+  document.getElementById('stepper').innerHTML = STEPS.map((s, i) => {
+    let cls = 'step-pill';
+    if (i === currentStep) cls += ' active';
+    else if (i < currentStep) cls += ' complete';
+    return `<div class="${cls}"><span class="n">${i < currentStep ? '✓' : i + 1}</span>${s}</div>`;
+  }).join('');
+}
+
+function renderStepBody() {
+  const body = document.getElementById('wizardBody');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
+  btnPrev.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+  btnNext.textContent = currentStep === STEPS.length - 1 ? (companyState.submitted ? 'Fertig' : 'Jetzt anmelden') : 'Weiter';
+
+  if (currentStep === 0) {
+    body.innerHTML = `
+      <div class="step-title">Stadt wählen</div>
+      <div class="step-sub">In welcher Kommune soll die Betriebsstätte angemeldet werden? Adressen und Gebühren sind öffentlich recherchiert (Stand Juli 2026).</div>
+      <div class="city-grid">
+        ${Object.entries(CITIES).map(([key, c]) => `
+        <div class="city-card ${companyState.city === key ? 'selected' : ''}" onclick="selectCity('${key}')">
+          <h4>${c.label}</h4>
+          <div class="office">${c.office}</div>
+          <div class="city-meta">
+            <span><b>Adresse:</b> ${c.address}</span>
+            <span><b>Tel:</b> ${c.phone}</span>
+            <span><b>E-Mail:</b> ${c.email}</span>
+            <span><b>Öffnungszeiten:</b> ${c.hours}</span>
+            <span><b>Portal:</b> ${c.portal}</span>
+            <span><b>Zuständige IHK:</b> ${c.ihk}</span>
+          </div>
+          <span class="fee-tag">Gebühr: ${c.fee}</span>
+        </div>`).join('')}
+      </div>`;
+  }
+
+  if (currentStep === 1) {
+    body.innerHTML = `
+      <div class="step-title">Unternehmensdaten</div>
+      <div class="step-sub">Angaben zum anzumeldenden Gewerbebetrieb.</div>
+      <div class="field-grid">
+        <div class="field"><label>Firma / Name des Unternehmens</label><input id="inpFirma" value="${companyState.firma}" oninput="companyState.firma=this.value"></div>
+        <div class="field"><label>Rechtsform</label>
+          <select id="inpRechtsform" onchange="companyState.rechtsform=this.value">
+            <option ${companyState.rechtsform==='GmbH'?'selected':''}>GmbH</option>
+            <option ${companyState.rechtsform==='UG (haftungsbeschränkt)'?'selected':''}>UG (haftungsbeschränkt)</option>
+            <option ${companyState.rechtsform==='Einzelunternehmen'?'selected':''}>Einzelunternehmen</option>
+          </select>
+        </div>
+        <div class="field"><label>Handelsregisternummer (falls vorhanden)</label><input placeholder="z. B. HRB 123456" value="${companyState.hrb}" oninput="companyState.hrb=this.value"></div>
+        <div class="field"><label>Vertretungsberechtigte Person</label><input placeholder="Vor- und Nachname" value="${companyState.geschaeftsfuehrer}" oninput="companyState.geschaeftsfuehrer=this.value"></div>
+        <div class="field"><label>Beginn des Gewerbes</label><input type="date" value="${companyState.beginn}" oninput="companyState.beginn=this.value"></div>
+        <div class="field"><label>Anzahl Mitarbeiter (geplant Jahr 1)</label>
+          <select onchange="companyState.mitarbeiter=this.value">
+            <option ${companyState.mitarbeiter==='1-10'?'selected':''}>1-10</option>
+            <option ${companyState.mitarbeiter==='11-50'?'selected':''}>11-50</option>
+            <option ${companyState.mitarbeiter==='50+'?'selected':''}>50+</option>
+          </select>
+        </div>
+        <div class="field full"><label>Angemeldete Tätigkeit</label><textarea oninput="companyState.taetigkeit=this.value">${companyState.taetigkeit}</textarea>
+          <span class="hint">Vorschlag orientiert an § 5 EnWG (Energielieferant) — bei Bedarf anpassen.</span>
+        </div>
+      </div>`;
+  }
+
+  if (currentStep === 2) {
+    body.innerHTML = `
+      <div class="step-title">Dokumente</div>
+      <div class="step-sub">Für GmbH-Gründungen typischerweise erforderlich. Upload ist im MVP simuliert — es werden keine echten Dateien verarbeitet.</div>
+      <div class="upload-zone" onclick="mockUpload()">📎 Datei hierher ziehen oder klicken zum Hochladen (simuliert)</div>
+      <div class="doc-list" id="docList"></div>`;
+    renderDocs();
+  }
+
+  if (currentStep === 3) {
+    const c = companyState.city ? CITIES[companyState.city] : null;
+    body.innerHTML = `
+      <div class="step-title">Prüfung</div>
+      <div class="step-sub">Bitte Angaben vor der Übermittlung prüfen.</div>
+      <div class="summary-block">
+        <div class="summary-row"><span class="k">Zuständiges Amt</span><span>${c ? c.office + ', ' + c.label : '—'}</span></div>
+        <div class="summary-row"><span class="k">Firma</span><span>${companyState.firma}</span></div>
+        <div class="summary-row"><span class="k">Rechtsform</span><span>${companyState.rechtsform}</span></div>
+        <div class="summary-row"><span class="k">Vertretung</span><span>${companyState.geschaeftsfuehrer || '—'}</span></div>
+        <div class="summary-row"><span class="k">Tätigkeit</span><span>${companyState.taetigkeit}</span></div>
+        <div class="summary-row"><span class="k">Beginn</span><span>${companyState.beginn || '—'}</span></div>
+        <div class="summary-row"><span class="k">Dokumente</span><span>${companyState.docs.length} Datei(en)</span></div>
+        <div class="summary-row"><span class="k">Gebühr</span><span>${c ? c.fee : '—'}</span></div>
+      </div>`;
+  }
+
+  if (currentStep === 4) {
+    const c = companyState.city ? CITIES[companyState.city] : null;
+    if (!companyState.submitted) {
+      const payload = {
+        firma: companyState.firma, rechtsform: companyState.rechtsform,
+        vertretung: companyState.geschaeftsfuehrer, taetigkeit: companyState.taetigkeit,
+        beginn: companyState.beginn, betriebsstaette: c ? c.address : null,
+        dokumente: companyState.docs,
+      };
+      body.innerHTML = `
+        <div class="step-title">Übermittlung an ${c ? c.office + ', ' + c.label : 'Gewerbeamt'}</div>
+        <div class="step-sub">Klicke unten auf „Jetzt anmelden", um die simulierte Übermittlung an die Mock-Schnittstelle des Gewerbeamts zu starten.</div>
+        <div class="json-panel" id="submitJson">POST ${c ? c.endpoint : ''}
+${JSON.stringify(payload, null, 2)}</div>
+        <div class="call-label" id="submitCallLabel"><span class="dot"></span> Bereit zur Übermittlung (Mock, .invalid-Domain)</div>`;
+    } else {
+      body.innerHTML = `
+        <div class="step-title">Anmeldung übermittelt ✓</div>
+        <div class="step-sub">Referenz <span class="mono">${companyState.ref}</span> · ${new Date().toLocaleString('de-DE')}</div>
+        <div class="timeline">
+          <div class="timeline-item done"><div class="timeline-dot">✓</div><div class="timeline-text"><b>${c.office}, ${c.label}</b><p>Anmeldung eingegangen, Gebühr ${c.fee} fällig. Referenz ${companyState.ref}.</p></div></div>
+          <div class="timeline-item pending"><div class="timeline-dot">⏳</div><div class="timeline-text"><b>Finanzamt — Fragebogen zur steuerlichen Erfassung</b><p>Wird gesetzlich automatisch angestoßen (ELSTER, Mock). Steuernummer folgt in 2–4 Wochen.</p></div></div>
+          <div class="timeline-item pending"><div class="timeline-dot">⏳</div><div class="timeline-text"><b>${c.ihk} — Willkommens-Mitgliedschaft</b><p>Automatische Pflichtmitgliedschaft nach Gewerbeanmeldung (Mock).</p></div></div>
+          <div class="timeline-item pending"><div class="timeline-dot">⏳</div><div class="timeline-text"><b>Statistisches Landesamt Baden-Württemberg</b><p>Meldung zur Gewerbeanzeigenstatistik (Mock).</p></div></div>
+          <div class="timeline-item pending"><div class="timeline-dot">⏳</div><div class="timeline-text"><b>Berufsgenossenschaft</b><p>Anmeldung wird empfohlen — erfolgt nicht automatisch, bitte separat vornehmen.</p></div></div>
+        </div>`;
+    }
+  }
+}
+
+function selectCity(key) { companyState.city = key; renderStepBody(); }
+
+function mockUpload() {
+  const names = ['Handelsregisterauszug.pdf', 'Gesellschafterliste.pdf', 'Personalausweis_GF.pdf', 'Gesellschaftsvertrag.pdf'];
+  const remaining = names.filter(n => !companyState.docs.includes(n));
+  if (remaining.length === 0) return;
+  companyState.docs.push(remaining[0]);
+  renderDocs();
+}
+function renderDocs() {
+  const list = document.getElementById('docList');
+  if (!list) return;
+  list.innerHTML = companyState.docs.map((d, i) => `
+    <div class="doc-item"><span class="doc-name">📄 ${d}</span><span class="remove" onclick="removeDoc(${i})">Entfernen</span></div>
+  `).join('') || `<span class="hint">Noch keine Dokumente hinzugefügt.</span>`;
+}
+function removeDoc(i) { companyState.docs.splice(i, 1); renderDocs(); }
+
+function nextStep() {
+  if (currentStep === 0 && !companyState.city) { alert('Bitte zuerst eine Stadt auswählen.'); return; }
+  if (currentStep === STEPS.length - 1) {
+    if (!companyState.submitted) { submitGewerbe(); return; }
+    goDashboard(); return;
+  }
+  currentStep++; renderStepper(); renderStepBody();
+}
+function prevStep() { if (currentStep > 0) { currentStep--; renderStepper(); renderStepBody(); } }
+
+function submitGewerbe() {
+  const btn = document.getElementById('btnNext');
+  const label = document.getElementById('submitCallLabel');
+  btn.disabled = true; btn.textContent = 'Übermittle...';
+  label.className = 'call-label live'; label.innerHTML = '<span class="dot"></span> Verbindung zum Gewerbeamt (Mock) wird hergestellt…';
+  setTimeout(() => {
+    companyState.submitted = true;
+    companyState.ref = mockRef();
+    completed.add('gewerbe');
+    completed.add('ihk'); // ausgelöst als Folgeschritt
+    btn.disabled = false;
+    renderStepBody();
+  }, 1300);
+}
+
+/* ══════════════ INIT ══════════════ */
+renderDashboard();
+</script>
+</body>
+</html>
