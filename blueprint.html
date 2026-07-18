@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blueprint — encw - digital: White-Label-Energieversorger 2026</title>
+<meta name="description" content="Struktureller, behördlicher und unternehmerischer Blueprint für die Gründung eines white-label-fähigen Energieversorgers in Deutschland 2026.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #070b12;
+    --surface: #0d1420;
+    --surface2: #131d2c;
+    --surface3: #1a2740;
+    --border: #22314a;
+    --accent: #3ddc97;
+    --accent2: #5ee6c8;
+    --accent-ink: #04140d;
+    --blue: #4f8dfd;
+    --amber: #f5b942;
+    --red: #ef6a6a;
+    --text: #e9eef5;
+    --text-muted: #8ea0b8;
+    --text-dim: #56667f;
+    --radius: 12px;
+    --radius-sm: 7px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: radial-gradient(ellipse 1200px 600px at 50% -10%, #0f1c2e 0%, var(--bg) 55%);
+    color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: 15.5px; line-height: 1.65; min-height: 100vh;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  a { color: inherit; }
+
+  .mock-banner {
+    background: linear-gradient(90deg, #2b1a08, #1a1005); border-bottom: 1px solid #4a3418;
+    color: var(--amber); font-size: 0.78rem; letter-spacing: 0.03em; text-align: center; padding: 0.55rem 1rem;
+  }
+  .mock-banner b { color: #ffd88a; }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 2.5rem; border-bottom: 1px solid var(--border);
+    background: rgba(7, 11, 18, 0.85); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 50; flex-wrap: wrap; gap: 0.75rem;
+  }
+  .nav-left { display: flex; align-items: center; gap: 0.9rem; }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: var(--accent-ink); font-family: 'Fraunces', serif; flex-shrink: 0;
+  }
+  .nav-brandblock { line-height: 1.25; }
+  .nav-logo { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.15rem; }
+  .nav-tagline { font-size: 0.72rem; color: var(--text-muted); }
+  .nav-right { display: flex; align-items: center; gap: 0.7rem; }
+  .btn-link {
+    font-size: 0.8rem; padding: 0.55rem 1rem; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--surface2); color: var(--text);
+    text-decoration: none; transition: border-color .15s;
+  }
+  .btn-link:hover { border-color: var(--accent); }
+  .btn-link.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--accent-ink); border: none; font-weight: 500; }
+
+  .layout { max-width: 1280px; margin: 0 auto; padding: 2.5rem 2.5rem 6rem; display: grid; grid-template-columns: 230px 1fr; gap: 3rem; align-items: start; }
+
+  /* TOC */
+  .toc { position: sticky; top: 90px; display: flex; flex-direction: column; gap: 0.15rem; }
+  .toc a {
+    font-size: 0.8rem; color: var(--text-dim); text-decoration: none; padding: 0.4rem 0.7rem;
+    border-left: 2px solid var(--border); transition: color .15s, border-color .15s;
+  }
+  .toc a:hover { color: var(--text); border-color: var(--accent2); }
+  .toc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); padding: 0 0.7rem 0.5rem; }
+
+  .content h1 {
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 2.3rem; letter-spacing: -0.01em; margin-bottom: 0.6rem;
+  }
+  .content > p.lead { color: var(--text-muted); max-width: 74ch; font-size: 1rem; margin-bottom: 2rem; }
+
+  section.block { margin-bottom: 3.2rem; scroll-margin-top: 90px; }
+  section.block h2 {
+    font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.4rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  section.block .phase-range { font-size: 0.78rem; color: var(--accent2); font-family: 'JetBrains Mono', monospace; margin-bottom: 1rem; }
+  section.block > p { color: var(--text-muted); max-width: 76ch; margin-bottom: 1.2rem; }
+
+  /* TIMELINE */
+  .timeline-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; margin-bottom: 3rem; }
+  .tl-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.8rem 0.7rem; text-align: center; }
+  .tl-item .tl-n { font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .tl-item .tl-t { font-size: 0.82rem; margin-top: 0.25rem; }
+  .tl-item .tl-m { font-size: 0.7rem; color: var(--accent2); margin-top: 0.3rem; font-family: 'JetBrains Mono', monospace; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; min-width: 640px; }
+  thead th {
+    text-align: left; padding: 0.7rem 1rem; background: var(--surface2); color: var(--text-muted);
+    font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+  td.dep { color: var(--text-dim); font-size: 0.78rem; }
+  .tag {
+    display: inline-block; font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 999px;
+    background: var(--surface3); color: var(--text-muted); margin-right: 0.3rem;
+  }
+  .tag.behoerde { background: rgba(79,141,253,0.14); color: var(--blue); }
+  .tag.neu2026 { background: rgba(245,185,66,0.16); color: var(--amber); }
+
+  /* CALLOUT */
+  .callout {
+    border: 1px solid var(--border); border-left: 3px solid var(--amber); background: var(--surface);
+    border-radius: var(--radius-sm); padding: 1rem 1.2rem; margin: 1.3rem 0; font-size: 0.85rem;
+  }
+  .callout.info { border-left-color: var(--blue); }
+  .callout.ok { border-left-color: var(--accent); }
+  .callout b { display: block; margin-bottom: 0.3rem; font-size: 0.82rem; }
+
+  /* COMPARISON */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.2rem 0; }
+  .compare-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; }
+  .compare-card h4 { font-size: 0.95rem; margin-bottom: 0.6rem; }
+  .compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.82rem; color: var(--text-muted); }
+  .compare-card ul li::before { content: "— "; color: var(--text-dim); }
+  .compare-card.reco { border-color: var(--accent); }
+  .reco-badge { font-size: 0.68rem; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; display: block; }
+
+  /* STAT ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.2rem 0; }
+  .kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.2rem; }
+  .kpi-card .kpi-n { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--accent2); }
+  .kpi-card .kpi-l { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+  .risk-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+  .risk-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: var(--radius-sm); padding: 1rem 1.1rem; }
+  .risk-card h5 { font-size: 0.88rem; margin-bottom: 0.35rem; }
+  .risk-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+  footer { border-top: 1px solid var(--border); padding: 2.5rem; margin-top: 1rem; }
+  .foot-wrap { max-width: 1280px; margin: 0 auto; }
+  footer h4 { font-size: 0.85rem; margin-bottom: 0.8rem; color: var(--text-muted); }
+  .source-list { font-size: 0.74rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 0.3rem; }
+  .source-list a { color: var(--text-dim); text-decoration: underline; text-decoration-color: var(--border); }
+  .source-list a:hover { color: var(--accent2); }
+  .foot-disclaimer { font-size: 0.72rem; color: var(--text-dim); margin-top: 1.2rem; max-width: 90ch; }
+
+  @media (max-width: 980px) {
+    .layout { grid-template-columns: 1fr; }
+    .toc { position: static; flex-direction: row; flex-wrap: wrap; }
+    .timeline-strip, .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    .compare-grid, .risk-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mock-banner">📘 <b>BLUEPRINT —</b> Struktureller Fahrplan zur MVP-GUI. Richtwerte für Fristen/Kapital sind Orientierung, keine Rechts- oder Steuerberatung. Quellen unten.</div>
+
+<nav>
+  <div class="nav-left">
+    <div class="logo-mark">e</div>
+    <div class="nav-brandblock">
+      <div class="nav-logo">encw - digital</div>
+      <div class="nav-tagline">Blueprint · Gründung eines White-Label-Energieversorgers 2026</div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a class="btn-link" href="energieversorger-mvp.html">← Gründungs-Cockpit (MVP)</a>
+  </div>
+</nav>
+
+<div class="layout">
+  <aside class="toc">
+    <span class="toc-label">Inhalt</span>
+    <a href="#ueberblick">Überblick</a>
+    <a href="#phase0">Phase 0 · Konzept &amp; Kapital</a>
+    <a href="#phase1">Phase 1 · Rechtliche Gründung</a>
+    <a href="#phase2">Phase 2 · Energierechtliche Zulassung</a>
+    <a href="#phase3">Phase 3 · IT &amp; Compliance</a>
+    <a href="#phase4">Phase 4 · Pilotbetrieb</a>
+    <a href="#phase5">Phase 5 · Skalierung</a>
+    <a href="#whitelabel">White-Label-Architektur</a>
+    <a href="#kapital">Kapital &amp; Team</a>
+    <a href="#regulatorik">2026-Regulatorik-Radar</a>
+    <a href="#risiken">Risiken</a>
+  </aside>
+
+  <div class="content">
+    <h1>Blueprint: encw - digital</h1>
+    <p class="lead">Struktureller, behördlicher und unternehmerischer Fahrplan für die Gründung eines neuen, weiße-Label-fähigen Energieversorgers in Deutschland — Stand Juli 2026. Ergänzt das klickbare <a href="energieversorger-mvp.html" style="color:var(--accent2)">Gründungs-Cockpit (MVP)</a>, das den Gewerbeanmeldungs-Workflow für Stuttgart, Karlsruhe und Pforzheim bereits abbildet.</p>
+
+    <section class="block" id="ueberblick">
+      <h2>Überblick</h2>
+      <p>Ein moderner Energieversorger im Weiße-Label-Stil ist im Kern zweierlei: <b>(1)</b> ein regulatorisch zugelassener Energielieferant (Rechtsträger mit § 5-EnWG-Anzeige, MaStR-Registrierung, Bilanzkreis- und Netznutzungsverträgen) und <b>(2)</b> eine mandantenfähige Technologieplattform, über die Partnermarken (Stadtwerke, Fintechs, Mobilitätsanbieter, Bau-/Wohnungsunternehmen …) unter eigenem Branding Strom- und Gasverträge vertreiben, ohne selbst die volle regulatorische Last zu tragen. Der folgende Fahrplan gliedert die Gründung in sechs Phasen — von Konzept bis Skalierung — mit Zuständigkeiten, groben Zeit-Richtwerten und den 2026 neu hinzugekommenen Pflichten.</p>
+      <div class="timeline-strip">
+        <div class="tl-item"><div class="tl-n">Phase 0</div><div class="tl-t">Konzept &amp; Kapital</div><div class="tl-m">M -2 – 0</div></div>
+        <div class="tl-item"><div class="tl-n">Phase 1</div><div class="tl-t">Rechtl. Gründung</div><div class="tl-m">M 0 – 2</div></div>
+        <div class="tl-item"><div class="tl-n">Phase 2</div><div class="tl-t">Energierechtl. Zulassung</div><div class="tl-m">M 1 – 4</div></div>
+        <div class="tl-item"><div class="tl-n">Phase 3</div><div class="tl-t">IT &amp; Compliance</div><div class="tl-m">M 2 – 6</div></div>
+        <div class="tl-item"><div class="tl-n">Phase 4</div><div class="tl-t">Pilotbetrieb</div><div class="tl-m">M 5 – 7</div></div>
+        <div class="tl-item"><div class="tl-n">Phase 5</div><div class="tl-t">Skalierung</div><div class="tl-m">ab M 7</div></div>
+      </div>
+    </section>
+
+    <section class="block" id="phase0">
+      <h2>🧭 Phase 0 — Konzept &amp; Kapital</h2>
+      <div class="phase-range">Richtwert: Monat -2 bis 0 · vor formaler Gründung</div>
+      <p>Vor dem ersten Behördengang stehen strategische Weichenstellungen, die später schwer zu korrigieren sind.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Schritt</th><th>Details</th><th>Abhängigkeit</th></tr></thead>
+          <tbody>
+            <tr><td>Zielmarkt &amp; Sparte festlegen</td><td>B2C Haushalt und/oder B2B Gewerbe; Strom, Gas oder beides; Startregion (hier: Stuttgart, Karlsruhe, Pforzheim / Baden-Württemberg)</td><td class="dep">—</td></tr>
+            <tr><td>Rechtsform wählen</td><td>GmbH empfohlen (Haftungsbeschränkung, Kapitalmarktfähigkeit für spätere Investoren); UG als kapitalarmer Einstieg möglich, aber bei Bonitätsprüfungen der Netzbetreiber ein Nachteil</td><td class="dep">—</td></tr>
+            <tr><td>Build-vs-Buy Plattform</td><td>Eigene Whitelabel-Billing/CRM-Plattform entwickeln oder auf bestehende Marktkommunikations-/Abrechnungssoftware (z. B. etablierte MaKo-Dienstleister) aufsetzen</td><td class="dep">—</td></tr>
+            <tr><td>Grobes Kapital- &amp; Teamkonzept</td><td>Stammkapital + Working Capital für Bonität/Beschaffung grob budgetieren (siehe „Kapital &amp; Team")</td><td class="dep">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="phase1">
+      <h2>🏛️ Phase 1 — Rechtliche Gründung</h2>
+      <div class="phase-range">Richtwert: Monat 0 bis 2</div>
+      <p>Die klassische Unternehmensgründung — hier bereits im <a href="energieversorger-mvp.html" style="color:var(--accent2)">MVP-Cockpit klickbar</a> für die Gewerbeanmeldung.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Schritt</th><th>Zuständig</th><th>Hinweis</th></tr></thead>
+          <tbody>
+            <tr><td>Gesellschaftsvertrag &amp; Notartermin</td><td><span class="tag behoerde">Notariat</span></td><td>Beurkundung, Gesellschafterliste, Geschäftsführerbestellung</td></tr>
+            <tr><td>Handelsregister-Eintragung (HRB)</td><td><span class="tag behoerde">Amtsgericht</span></td><td>Stammkapital-Einzahlung vorab nachweisen (mind. 12.500 € von 25.000 € bei GmbH)</td></tr>
+            <tr><td>Gewerbeanmeldung</td><td><span class="tag behoerde">Ordnungsamt der Stadt</span></td><td>Für Stuttgart, Karlsruhe, Pforzheim bereits im MVP-Cockpit als Workflow hinterlegt (Adressen, Gebühren, Formulardaten)</td></tr>
+            <tr><td>Steuerliche Erfassung</td><td><span class="tag behoerde">Finanzamt (ELSTER)</span></td><td>Wird durch Gewerbeanmeldung automatisch angestoßen; Steuernummer &amp; USt-IdNr.</td></tr>
+            <tr><td>IHK-Mitgliedschaft</td><td><span class="tag behoerde">Zuständige IHK</span></td><td>Automatische Pflichtmitgliedschaft, kein separater Antrag nötig</td></tr>
+            <tr><td>Betriebs-/Berufshaftpflicht</td><td>Versicherer</td><td>Vor Kundengeschäft abschließen; relevant auch für spätere Bonitätsprüfung durch Netzbetreiber</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="phase2">
+      <h2>🔌 Phase 2 — Energierechtliche Zulassung</h2>
+      <div class="phase-range">Richtwert: Monat 1 bis 4 · teils parallel zu Phase 1</div>
+      <p>Der eigentliche Markteintritt als Energielieferant — deutlich aufwendiger als die reine Gewerbeanmeldung und der Kern dessen, was einen Energieversorger von einem gewöhnlichen Gewerbebetrieb unterscheidet.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Schritt</th><th>Zuständig</th><th>Hinweis</th></tr></thead>
+          <tbody>
+            <tr><td>Anzeige nach § 5 EnWG</td><td><span class="tag behoerde">Bundesnetzagentur</span></td><td>Pflicht-Anzeige der Energiebelieferung von Letztverbrauchern vor Markteintritt; BNetzA führt eine monatlich aktualisierte Lieferantenliste</td></tr>
+            <tr><td>Registrierung Marktstammdatenregister (MaStR)</td><td><span class="tag behoerde">Bundesnetzagentur</span></td><td>Marktrolle „Lieferant" für Strom und/oder Gas anlegen, verantwortliche Person benennen</td></tr>
+            <tr><td>Bilanzkreisvertrag</td><td>Übertragungsnetzbetreiber (Strom, z. B. TransnetBW für BW) / Marktgebietsverantwortlicher (Gas, THE)</td><td>Voraussetzung für Energiebeschaffung am Großhandelsmarkt</td></tr>
+            <tr><td>Netznutzungs-/Lieferantenrahmenverträge</td><td>Verteilnetzbetreiber vor Ort</td><td>Je nach Anzahl bedienter Netzgebiete mehrere Verträge parallel</td></tr>
+            <tr><td>Bonitätsnachweis / Sicherheitsleistung</td><td>Verteilnetzbetreiber</td><td>Meist Bankbürgschaft, risikobasiert nach erwartetem Liefervolumen</td></tr>
+            <tr><td>Marktkommunikations-Anbindung</td><td>MaKo-Dienstleister / eigene IT</td><td>GPKE- (Strom) und GeLi-Gas-Prozesse per EDIFACT; <span class="tag neu2026">MaKo 2026</span> Formatwechsel zwingend zum 01.04. und 01.10.2026 beachten</td></tr>
+            <tr><td>Dynamischer Tarif vorbereiten</td><td>Produkt/Pricing</td><td><span class="tag neu2026">§ 41a EnWG</span> — seit 1.1.2025 muss <b>jeder</b> Stromlieferant mindestens einen dynamischen Tarif anbieten, nicht mehr nur Lieferanten &gt;100.000 Kunden</td></tr>
+            <tr><td>24h-Lieferantenwechsel-Prozess</td><td>MaKo-Prozesse</td><td>Strom: seit 6.6.2025 Standard (Wechsel binnen 24 h an jedem Werktag). Gas: Einführung ab April 2026 — bei Gasgeschäft Timing beachten</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout info"><b>ℹ️ Reihenfolge beachten</b>Die § 5-EnWG-Anzeige und MaStR-Registrierung setzen eine eingetragene Gesellschaft voraus (Phase 1), sollten aber so früh wie möglich parallel angestoßen werden — Bilanzkreis- und Netznutzungsverträge haben selbst wieder eigene Vorlaufzeiten bei den Netzbetreibern.</div>
+    </section>
+
+    <section class="block" id="phase3">
+      <h2>💻 Phase 3 — IT, Plattform &amp; Compliance</h2>
+      <div class="phase-range">Richtwert: Monat 2 bis 6 · parallel zu Phase 2</div>
+      <p>Hier entsteht die eigentliche White-Label-Fähigkeit — und die 2026 neu scharf gestellte IT-Sicherheitspflicht.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Schritt</th><th>Zuständig</th><th>Hinweis</th></tr></thead>
+          <tbody>
+            <tr><td>Mandantenfähige Plattform</td><td>Intern / Plattformpartner</td><td>Billing, CRM, Kundenportal, Tarifrechner, Smart-Meter-Gateway-Anbindung je Mandant konfigurierbar</td></tr>
+            <tr><td>NIS2 / KRITIS-Registrierung</td><td><span class="tag behoerde">BSI / Bundesnetzagentur</span></td><td><span class="tag neu2026">Seit 6.12.2025 in Kraft</span> ohne Übergangsfrist; KRITIS-Dachgesetz seit 17.3.2026. Reguläre Registrierungsfrist war 6.3.2026 — bei späterer Gründung unverzüglich nachholen und dokumentieren</td></tr>
+            <tr><td>IT-Sicherheitskatalog &amp; Zertifizierung</td><td>BNetzA-Vorgabe</td><td>Umsetzung des BNetzA-IT-Sicherheitskatalogs, Zielbild ISO 27001 / ISO 27019; KRITIS-Verordnung 2026 konkretisiert Schwellenwerte laufend (Referentenentwurf Ende Mai 2026)</td></tr>
+            <tr><td>Meldewege Sicherheitsvorfälle</td><td>BSI</td><td>Prozesse für verpflichtende Vorfallsmeldung einrichten, auch physische Bedrohungen (Sabotage, Anlagenschutz) mitdenken</td></tr>
+            <tr><td>Datenschutz (DSGVO)</td><td>Intern / Datenschutzbeauftragter</td><td>Verfahrensverzeichnis, AV-Verträge mit jedem Whitelabel-Partner, Betroffenenrechte-Prozesse</td></tr>
+            <tr><td>Vertragsunterlagen &amp; AGB</td><td>Recht</td><td>StromGVV/GasGVV-Grundsätze auch für Sondervertragskunden als Referenz, Widerrufs-/Fernabsatzrecht, Preisblätter je Mandant</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="phase4">
+      <h2>🧪 Phase 4 — Pilotbetrieb / Soft Launch</h2>
+      <div class="phase-range">Richtwert: Monat 5 bis 7</div>
+      <p>Vor dem Vollstart empfiehlt sich ein begrenzter Pilot in einer Stadt (z. B. Stuttgart), um die komplette Prozesskette einmal end-to-end zu beobachten, bevor mehrere Städte und Whitelabel-Partner gleichzeitig laufen.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Schritt</th><th>Ziel</th></tr></thead>
+          <tbody>
+            <tr><td>Testkunden-Kohorte (Strom, Sondervertrag)</td><td>Reale Marktkommunikation unter Beobachtung, kleine Fallzahl</td></tr>
+            <tr><td>End-to-End-Test</td><td>Anmeldung → 24h-Lieferantenwechsel → Abrechnung inkl. dynamischem Tarif → Kundenservice</td></tr>
+            <tr><td>Fehlerquote GPKE-Prozesse überwachen</td><td>Marktkommunikation stabilisieren vor Skalierung</td></tr>
+            <tr><td>Tarife &amp; AGB nachschärfen</td><td>Basierend auf echtem Kundenfeedback vor Rollout auf Karlsruhe/Pforzheim</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="phase5">
+      <h2>🚀 Phase 5 — Skalierung &amp; White-Label-Partner-Onboarding</h2>
+      <div class="phase-range">Richtwert: ab Monat 7</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Schritt</th><th>Ziel</th></tr></thead>
+          <tbody>
+            <tr><td>Rollout weitere Städte</td><td>Karlsruhe, Pforzheim, danach regionale bzw. bundesweite Ausweitung</td></tr>
+            <tr><td>Whitelabel-Partner-Onboarding öffnen</td><td>Standardisierter Partner-Onboarding-Workflow (siehe Architektur unten), erste externe Marken live schalten</td></tr>
+            <tr><td>Beschaffung professionalisieren</td><td>Portfoliomanagement, Absicherungsstrategie zwischen Termin- und Spotmarkt (EEX), Treasury-Funktion aufbauen</td></tr>
+            <tr><td>Kundenservice skalieren</td><td>Automatisierung der Marktkommunikation, Self-Service-Portale je Mandant</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="whitelabel">
+      <h2>🎨 White-Label-Architektur</h2>
+      <p>Die wichtigste strategische Entscheidung: <b>Wer trägt rechtlich die Lieferantenrolle</b> — die Plattformgesellschaft allein, oder jeder Partner einzeln? Das entscheidet über Skalierbarkeit, Haftung und Time-to-Market pro neuem Partner.</p>
+      <div class="compare-grid">
+        <div class="compare-card reco">
+          <span class="reco-badge">Empfohlener Start</span>
+          <h4>Modell A — Ein Lieferant, viele Marken</h4>
+          <ul>
+            <li>Nur encw - digital hält § 5-EnWG-Anzeige, MaStR-Registrierung, Bilanzkreis- und Netzverträge</li>
+            <li>Partnermarken sind reine Frontend-/Vertriebsmarken auf gemeinsamer Plattform (wie im MVP-Cockpit als Brand-Switcher demonstriert)</li>
+            <li>Schnelles Partner-Onboarding, keine Zulassung pro Partner nötig</li>
+            <li>Nachteil: gesamte Bonität, Haftung und Beschaffungsrisiko liegt zentral bei encw - digital</li>
+          </ul>
+        </div>
+        <div class="compare-card">
+          <h4>Modell B — Partner als eigenständige Lieferanten</h4>
+          <ul>
+            <li>Jeder größere Partner registriert eigene § 5-Anzeige und MaStR-Eintragung</li>
+            <li>encw - digital liefert nur Technologie, Marktkommunikation und ggf. Bilanzkreis-Dienstleistung (Bilanzkreis-Fronting)</li>
+            <li>Bessere rechtliche Trennung von Haftung und Bonität pro Partner</li>
+            <li>Deutlich längere Time-to-Market pro neuem Partner (jeweils eigene Behördenzulassung)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout ok"><b>✅ Praxisempfehlung</b>Mit Modell A starten (Phase 1–4), um schnell in den Markt zu kommen. Sobald ein Partner ein Volumen erreicht, das eigenes Bilanzkreis- und Bonitätsmanagement rechtfertigt, gezielt in Modell B migrieren — die Plattform sollte deshalb von Anfang an so gebaut sein, dass eine Mandanten-Marktrolle „Lieferant" später sauber austauschbar ist.</div>
+    </section>
+
+    <section class="block" id="kapital">
+      <h2>💰 Kapital &amp; Team (Richtwerte)</h2>
+      <p>Grobe Orientierungsgrößen — im Einzelfall mit Energiehandel/Treasury und Steuerberatung zu validieren, keine verbindliche Kalkulation.</p>
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-n">25.000 €</div><div class="kpi-l">GmbH-Stammkapital (min. 12.500 € bei Gründung einzuzahlen)</div></div>
+        <div class="kpi-card"><div class="kpi-n">niedrig 6-stellig</div><div class="kpi-l">Working Capital Pilotphase: Bonität/Sicherheiten + Systeme (1 Stadt, kleine Kohorte)</div></div>
+        <div class="kpi-card"><div class="kpi-n">7-stellig</div><div class="kpi-l">Working Capital Skalierung: Bonität wächst mit Kundenvolumen, Vorfinanzierung Energieeinkauf</div></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rolle</th><th>Kernaufgabe</th></tr></thead>
+          <tbody>
+            <tr><td>Geschäftsführung / Compliance</td><td>Gesamtverantwortung, Behördenkontakte, NIS2/KRITIS-Verantwortlichkeit</td></tr>
+            <tr><td>Energiehandel &amp; Portfoliomanagement</td><td>Beschaffung, Bilanzkreissteuerung, Absicherungsstrategie</td></tr>
+            <tr><td>Regulatorik &amp; Marktkommunikation</td><td>MaStR, GPKE/GeLi-Gas-Prozesse, MaKo-Formatpflege</td></tr>
+            <tr><td>IT-Plattform &amp; IT-Sicherheit</td><td>Mandantenfähige Plattform, NIS2-Umsetzung, Datenschutz</td></tr>
+            <tr><td>Kundenservice &amp; Billing</td><td>Vertragsmanagement, Rechnungsstellung, Beschwerdemanagement</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="regulatorik">
+      <h2>📡 2026-Regulatorik-Radar</h2>
+      <p>Vier Änderungen, die 2026 besonders relevant für einen Neustart sind und in den Phasen oben bereits eingearbeitet wurden:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Thema</th><th>Status Juli 2026</th><th>Auswirkung</th></tr></thead>
+          <tbody>
+            <tr><td>NIS2-Umsetzungsgesetz</td><td>In Kraft seit 6.12.2025, ohne Übergangsfrist</td><td>Energieversorger gelten als „besonders wichtige Einrichtung" — IT- und physische Sicherheitspflichten ab Tag 1</td></tr>
+            <tr><td>KRITIS-Dachgesetz</td><td>In Kraft seit 17.3.2026, Schwellenwerte laufend konkretisiert (Referentenentwurf KRITIS-VO Ende Mai 2026)</td><td>Zusätzliche Registrierungs- und Meldepflichten je nach Anlagengröße</td></tr>
+            <tr><td>MaKo 2026 Formatwechsel</td><td>Update 01.04.2026 (Mitteilung 54), weiteres Update bindend ab 01.10.2026</td><td>Marktkommunikations-Software muss beide Stichtage technisch mittragen</td></tr>
+            <tr><td>Dynamische Tarife (§ 41a EnWG)</td><td>Pflicht für <b>alle</b> Stromlieferanten seit 1.1.2025</td><td>Produkt-Roadmap muss einen dynamischen Tarif von Tag 1 an vorsehen, nicht erst ab Kundenschwelle</td></tr>
+            <tr><td>24h-Lieferantenwechsel</td><td>Strom seit 6.6.2025 Standard, Gas ab April 2026</td><td>Prozesse müssen den 24h-Wechsel unterstützen — bei Gas Timing der eigenen Systemumstellung beachten</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block" id="risiken">
+      <h2>⚠️ Risiken &amp; Show-Stopper</h2>
+      <div class="risk-grid">
+        <div class="risk-card"><h5>Bonität &amp; Kapitalbedarf</h5><p>Sicherheitsleistungen bei Netzbetreibern wachsen mit dem Liefervolumen — unterschätzter Kapitalbedarf ist der häufigste Grund für gescheiterte Markteintritte neuer Lieferanten.</p></div>
+        <div class="risk-card"><h5>Beschaffungspreisrisiko</h5><p>Ohne belastbare Absicherungsstrategie am Termin-/Spotmarkt drohen Verluste bei Preisspitzen, insbesondere in der Pilotphase mit kleinem Kundenportfolio.</p></div>
+        <div class="risk-card"><h5>NIS2/KRITIS-Compliance-Aufwand</h5><p>Schwellenwerte der KRITIS-Verordnung 2026 waren im Mai 2026 noch als Referentenentwurf unterwegs — Compliance-Umfang kann sich während der Gründungsphase noch verschieben.</p></div>
+        <div class="risk-card"><h5>Abhängigkeit von Whitelabel-Partnern</h5><p>Bei Modell A haftet encw - digital für Servicequalität und Kommunikation aller Partnermarken — Reputationsrisiko bei Partner-Fehlverhalten.</p></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <div class="foot-wrap">
+    <h4>Quellen (Stand: Juli 2026)</h4>
+    <div class="source-list">
+      <span>NIS2-Umsetzungsgesetz &amp; KRITIS-Dachgesetz: <a href="https://www.openkritis.de/it-sicherheitsgesetz/sektor_energie.html" target="_blank" rel="noopener">openkritis.de</a>, <a href="https://shattered.io/de/2026/06/18/nis2-umsetzungsgesetz-deutschland-2026/" target="_blank" rel="noopener">shattered.io</a></span>
+      <span>MaKo 2026 Formatwechsel: <a href="https://www.bundesnetzagentur.de/DE/Beschlusskammern/BK06/BK6_83_Zug_Mess/835_mitteilungen_datenformate/Datenformate-node.html" target="_blank" rel="noopener">bundesnetzagentur.de</a>, <a href="https://www.bet-consulting.de/webmagazin/artikel/mako-2026-stabilisierung-statt-revolution-warum-das-format-update-zum-01042026-entscheidend-ist" target="_blank" rel="noopener">bet-consulting.de</a></span>
+      <span>Dynamische Tarife § 41a EnWG: <a href="https://www.gesetze-im-internet.de/enwg_2005/__41a.html" target="_blank" rel="noopener">gesetze-im-internet.de</a></span>
+      <span>24h-Lieferantenwechsel: <a href="https://www.bundesnetzagentur.de/DE/Vportal/Energie/KuendigungLieferantenwechsel/Lieferantenwechsel/start.html" target="_blank" rel="noopener">bundesnetzagentur.de</a></span>
+      <span>Gewerbeanmeldung Stuttgart/Karlsruhe/Pforzheim: siehe Quellenangaben im <a href="energieversorger-mvp.html" style="text-decoration-color:var(--border)">Gründungs-Cockpit (MVP)</a></span>
+    </div>
+    <p class="foot-disclaimer">Dieser Blueprint ist ein Orientierungsdokument auf Basis öffentlich recherchierter Informationen (Juli 2026) und ersetzt keine Rechts-, Steuer- oder Energierechtsberatung. Fristen, Schwellenwerte und Kapitalbedarfe sind vor einer echten Gründung mit Fachanwälten für Energierecht, Steuerberatung und den zuständigen Netzbetreibern zu verifizieren.</p>
+  </div>
+</footer>
+
+</body>
+</html>
